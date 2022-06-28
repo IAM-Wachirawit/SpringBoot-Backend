@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: jdbc:postgresql://localhost:5432/backend
+    username: postgres
+    password: syspass
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB    # Size file upload
+      max-request-size: 10MB  # Total size all time upload
+
+
