@@ -67,5 +67,11 @@ public class UserApi {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/refresh-token")
+    public ResponseEntity<String> refreshToken() throws BaseException {
+        String response = business.refreshToken();
+        return ResponseEntity.ok(response);
+    }
+
 }
 

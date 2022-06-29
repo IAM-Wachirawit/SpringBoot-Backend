@@ -1,46 +1,42 @@
 package com.nitendo.backend.config;
 
+import com.nitendo.backend.config.token.TokenFilterConfiguerer;
+import com.nitendo.backend.service.TokenService;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-public class SecurityConfig {
+@EnableWebSecurity
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final TokenService tokenService;
+
+    public SecurityConfig(TokenService tokenService) {
+        this.tokenService = tokenService;
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // @formatter:off
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
         http.cors().disable().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and().authorizeRequests().antMatchers("/user/register", "/user/login").anonymous()
-                .anyRequest().authenticated();
-
-//        http.authorizeRequests()
-//                .mvcMatchers("/userOnly/**").permitAll()
-//                .anyRequest().permitAll();
-//        http.formLogin()
-//                .permitAll()
-//                .loginPage("/loginPage.html");
-//        http.logout()
-//                .permitAll();
-//        // @formatter:on
-
-        return http.build();
+                .anyRequest().authenticated()
+                .and().apply(new TokenFilterConfiguerer(tokenService)); // filter user, password ที่ส่งเข้ามา โดยส่ง tokenFilter เข้าไป
     }
 
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth) throws Exception {
-//        return auth.getAuthenticationManager();
-//    }
-
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        super.configure(auth);
+        // TODO:
+    }
 }

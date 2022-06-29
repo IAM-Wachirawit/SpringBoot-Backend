@@ -49,8 +49,14 @@ public class UserService {
         return repository.save(entity);
     }
 
+    // Find by email
     public Optional<User> findByEmail(String email) {
         return repository.findByEmail(email);
+    }
+
+    // Find by ID
+    public Optional<User> findById(String id) {
+        return repository.findById(id);
     }
 
     public boolean matchPassword(String rawPassword, String encodePassword) {

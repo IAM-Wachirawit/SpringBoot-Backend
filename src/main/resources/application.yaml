@@ -11,5 +11,9 @@ spring:
       enabled: true
       max-file-size: 2MB    # Size file upload
       max-request-size: 10MB  # Total size all time upload
-
+---
+app:
+  token:
+    secret: m#MySecretGGWP2021
+    issuer: BackendService
 
