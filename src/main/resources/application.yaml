@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: smtp.gmail.com  # Protocol
+    port: 587             # Default port
+    username: supteam2468         # Email ไม่ต้องใส่ domain
+    password: cbcnsqynczzoitcf    # App password ที่ได้จาก gmail function verify 2 step
+    properties:
+      mail:
+        smtp:
+          auth: true  # Authorization มีการเข้ารหัสไหม มี ssl หรือไม่
+          starttls:
+            enable: true
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,4 +27,7 @@ app:
   token:
     secret: m#MySecretGGWP2021
     issuer: BackendService
+  email:
+    from: supteam2468@gmail.com # Email ต้นทางที่ส่ง
+
 
