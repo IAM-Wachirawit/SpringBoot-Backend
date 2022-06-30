@@ -1,28 +1,28 @@
 # SpringBoot-Backend
 
 # Ep1
-Rest Controller
-Error Adiviser
-Exception Handler
+- Rest Controller
+- Error Adiviser
+- Exception Handler
 
 # Ep2
-Upload File
-Database (PostgreSQL)
-Security
-Unit Test
+- Upload File
+- Database (PostgreSQL)
+- Security
+- Unit Test
 
 # Ep3
-Database (Foreign key)
-JWT
+- - Database (Foreign key)
+- JWT
 
 # Ep4
-Email
-Job Scheduler
+- Email
+- Job Scheduler
 
 # Ep5
-Websocket
-Angular 11 (Frontend)
+- Websocket
+- Angular 11 (Frontend)
 
 # Ep6
-Kafka
-Redis
+- Kafka
+- Redis
