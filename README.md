@@ -24,5 +24,10 @@
 - Angular 11 (Frontend)
 
 # Ep6
+- Boostrap
+- Angular Material
+- Security for Frontend
+
+# Ep7
 - Kafka
 - Redis
