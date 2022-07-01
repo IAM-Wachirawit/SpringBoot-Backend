@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/user/register",
             "/user/login",
             "/socket/**",
-            "/chat/**"
+            "/chat/**"  // TODO: remove from config (Security Reason)
     };
 
     public SecurityConfig(TokenService tokenService) {
