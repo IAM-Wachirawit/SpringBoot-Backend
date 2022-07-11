@@ -5,6 +5,7 @@ import com.nitendo.backend.exception.BaseException;
 import com.nitendo.backend.exception.UserException;
 import com.nitendo.backend.mapper.UserMapper;
 import com.nitendo.backend.model.MLoginRequest;
+import com.nitendo.backend.model.MLoginResponse;
 import com.nitendo.backend.model.MRegisterRequest;
 import com.nitendo.backend.model.MRegisterResponse;
 import com.nitendo.backend.service.TokenService;
@@ -51,7 +52,7 @@ public class UserBusiness {
         return userMapper.toRegisterResponse(user);
     }
     
-    public String login(MLoginRequest request) throws UserException {
+    public MLoginResponse login(MLoginRequest request) throws UserException {
         // validate request
         // verify database
         Optional<User> opt = userService.findByEmail(request.getEmail());
@@ -64,9 +65,9 @@ public class UserBusiness {
             throw UserException.loginFailPasswordIncorrect();   // throw login fail, password incorrect
         }
 
-        // TODO: generate JWT
-        return tokenService.tokenize(user);
-
+        MLoginResponse response = new MLoginResponse();
+        response.setToken(tokenService.tokenize(user));
+        return response;
     }
 
         public String refreshToken() throws BaseException {
