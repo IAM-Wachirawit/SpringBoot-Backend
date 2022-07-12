@@ -7,10 +7,12 @@ import com.nitendo.backend.exception.BaseException;
 import com.nitendo.backend.service.AddressService;
 import com.nitendo.backend.service.SocialService;
 import com.nitendo.backend.service.UserService;
+import com.nitendo.backend.util.SecurityUtil;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,10 +32,13 @@ class UserServiceTests {
 	@Order(1)
 	@Test
 	void testCreate() throws BaseException {
+		String token = SecurityUtil.generateToken();
 		User user = userService.create(
 				TestCreateData.email,
 				TestCreateData.password,
-				TestCreateData.name
+				TestCreateData.name,
+				token,
+				new Date()
 		);
 
 		// Check not null

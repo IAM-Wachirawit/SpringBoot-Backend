@@ -4,9 +4,12 @@ import com.nitendo.backend.entity.User;
 import com.nitendo.backend.exception.BaseException;
 import com.nitendo.backend.exception.UserException;
 import com.nitendo.backend.repository.UserRepository;
+import com.nitendo.backend.util.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -21,8 +24,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
-    public User create(String email, String password, String name) throws BaseException {
+    public User create(String email, String password, String name, String token, Date tokenExpireDate) throws BaseException {
         // Validate
         if (Objects.isNull(email)) {
             throw UserException.createEmailNull();  // throw error email null
@@ -46,8 +48,12 @@ public class UserService {
         entity.setEmail(email);
         entity.setPassword(passwordEncoder.encode(password));
         entity.setName(name);
+        entity.setToken(token);
+        entity.setTokenExpire(tokenExpireDate);
         return repository.save(entity);
     }
+
+
 
     // Find by email
     public Optional<User> findByEmail(String email) {
@@ -57,6 +63,11 @@ public class UserService {
     // Find by ID
     public Optional<User> findById(String id) {
         return repository.findById(id);
+    }
+
+    // Find by Token
+    public Optional<User> findByToken(String token) {
+        return repository.findByToken(token);
     }
 
     public boolean matchPassword(String rawPassword, String encodePassword) {
