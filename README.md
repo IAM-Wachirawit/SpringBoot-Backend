@@ -30,4 +30,19 @@
 
 # Ep7
 - Kafka
+- Kafka (Producer & Consumer)
+
+# Ep8
+- Angular Frontend (Activation Page)
+- Angular Frontend (i18n)
 - Redis
+
+# Ep9
+- Build Spring Boot as Container (Build Image)
+- Run Spring Boot from Image (Build Container)
+- Introduction to Kubernetes
+
+# Ep10
+- Build Single Note Kubernetes Clutser (Local)
+- Deploy Spring Boot App (Containerized) to Kubernetes Cluster
+- Monitoring our Kubernetes Cluster

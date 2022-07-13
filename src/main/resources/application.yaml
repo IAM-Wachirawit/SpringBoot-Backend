@@ -5,17 +5,17 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: "my-awesome-app"
-  mail:
-    host: smtp.gmail.com  # Protocol
-    port: 587             # Default port
-    username: supteam2468         # Email ไม่ต้องใส่ domain
-    password: cbcnsqynczzoitcf    # App password ที่ได้จาก gmail function verify 2 step
-    properties:
-      mail:
-        smtp:
-          auth: true  # Authorization มีการเข้ารหัสไหม มี ssl หรือไม่
-          starttls:
-            enable: true
+  #mail:
+    #host: smtp.gmail.com  # Protocol
+    #port: 587             # Default port
+    #username: supteam2468         # Email ไม่ต้องใส่ domain
+    #password: cbcnsqynczzoitcf    # App password ที่ได้จาก gmail function verify 2 step
+    #properties:
+      #mail:
+        #smtp:
+          #auth: true  # Authorization มีการเข้ารหัสไหม มี ssl หรือไม่
+          #starttls:
+            #enable: true
   jpa:
     hibernate:
       ddl-auto: update
@@ -28,6 +28,14 @@ spring:
       enabled: true
       max-file-size: 2MB    # Size file upload
       max-request-size: 10MB  # Total size all time upload
+  redis:
+    host: localhost   # Connect
+    port: 6379
+  cache:
+    type: redis
+    redis:
+      time-to-live: 300000   # เก็บ cache ในระบบ 5 นาที (1000 = 1 วินาที)
+
 ---
 app:
   token:

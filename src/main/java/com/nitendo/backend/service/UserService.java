@@ -5,6 +5,10 @@ import com.nitendo.backend.exception.BaseException;
 import com.nitendo.backend.exception.UserException;
 import com.nitendo.backend.repository.UserRepository;
 import com.nitendo.backend.util.SecurityUtil;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +18,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
+@Log4j2
 public class UserService {
 
     private final UserRepository repository;
@@ -61,7 +66,9 @@ public class UserService {
     }
 
     // Find by ID
+    @Cacheable(value = "user", key = "#id", unless = "#result == null")
     public Optional<User> findById(String id) {
+        log.info("Load User From DB: " + id);
         return repository.findById(id);
     }
 
@@ -78,7 +85,9 @@ public class UserService {
     public User update(User user) {
         return repository.save(user);
     }
+
     // Function update save data type receipt method data have validate check
+    @CachePut(value = "user", key = "#id")
     public User updateName(String id, String name) throws BaseException {
         Optional<User> opt = repository.findById(id);
         if ( opt.isEmpty() ) {
@@ -89,7 +98,13 @@ public class UserService {
         return repository.save(user);
     }
 
+    @CacheEvict(value = "user", key = "#id")
     public void deleteById(String id) {
         repository.deleteById(id);
+    }
+
+    @CacheEvict(value = "user", allEntries = true)
+    public void deleteAll() {
+        repository.deleteAll();
     }
 }

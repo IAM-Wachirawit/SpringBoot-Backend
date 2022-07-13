@@ -38,6 +38,11 @@ public class UserException extends BaseException {
         return new UserException("create.name.null");
     }
 
+// Update
+    public static UserException updateNameNull() {
+        return new UserException("update.name.null");
+    }
+
 // Login
     public static UserException loginFailEmailNotFound() {
         return new UserException("login.fail");
@@ -70,11 +75,11 @@ public class UserException extends BaseException {
     }
 
     // Resend Activation Email
-    public static UserException resendActivationEmailNoEmail() {
-        return new UserException("resend.activation.no.email");
+    public static UserException resendActivationEmailNoToken() {
+        return new UserException("resend.activation.no.token");
     }
 
-    public static UserException resendActivationEmailNotFound() {
+    public static UserException resendActivationTokenNotFound() {
         return new UserException("resend.activation.fail");
     }
 }
