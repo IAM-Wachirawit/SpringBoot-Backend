@@ -36,9 +36,9 @@ public class EmailBusiness {
 
         log.info("Token = " + token);
 
-        String finallink = "http://localhost:4200/activate/" + token ;
+        String finalLink = "http://localhost:4200/activate/" + token ;
         html = html.replace("${P_NAME}", name);
-        html = html.replace("${P_LINK}", finallink);
+        html = html.replace("${P_LINK}", finalLink);
 
         EmailRequest request = new EmailRequest();
         request.setTo(email);

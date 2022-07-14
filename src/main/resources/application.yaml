@@ -2,46 +2,37 @@ server:
   port: 8080
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    # bootstrap-servers: localhost:9092
+    bootstrap-servers: ${SECRET_KAFKA_HOST:localhost}:${SECRET_KAFKA_PORT:9092}
     consumer:
       group-id: "my-awesome-app"
-  #mail:
-    #host: smtp.gmail.com  # Protocol
-    #port: 587             # Default port
-    #username: supteam2468         # Email ไม่ต้องใส่ domain
-    #password: cbcnsqynczzoitcf    # App password ที่ได้จาก gmail function verify 2 step
-    #properties:
-      #mail:
-        #smtp:
-          #auth: true  # Authorization มีการเข้ารหัสไหม มี ssl หรือไม่
-          #starttls:
-            #enable: true
   jpa:
     hibernate:
       ddl-auto: update
   datasource:
-    url: jdbc:postgresql://localhost:5432/backend
-    username: postgres
-    password: syspass
+    # url: jdbc:postgresql://localhost:5432/backend
+    # username: postgres
+    #password: syspass
+    url: jdbc:postgresql://${SECRET_DB_HOST:localhost}:${SECRET_DB_PORT:5432}/backend
+    username: ${SECRET_DB_USERNAME:postgres}
+    password: ${SECRET_DB_PASSWORD:syspass}
   servlet:
     multipart:
       enabled: true
       max-file-size: 2MB    # Size file upload
       max-request-size: 10MB  # Total size all time upload
   redis:
-    host: localhost   # Connect
-    port: 6379
+    # host: localhost   # Connect
+    # port: 6379
+    host: ${SECRET_REDIS_HOST:localhost}
+    port: ${SECRET_REDIS_PORT:6379}
   cache:
     type: redis
     redis:
       time-to-live: 300000   # เก็บ cache ในระบบ 5 นาที (1000 = 1 วินาที)
-
 ---
 app:
   token:
-    secret: m#MySecretGGWP2021
+    # secret: m#MySecretGGWP2021
+    secret: ${SECRET_JWT_SECRET:'m#MySecretGGWP2021'}
     issuer: BackendService
-  email:
-    from: supteam2468@gmail.com # Email ต้นทางที่ส่ง
-
-
